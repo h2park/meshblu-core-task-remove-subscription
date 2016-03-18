@@ -4,6 +4,8 @@ node_js:
 #addons:
 #  code_climate:
 #    repo_token: "<REPO TOKEN GOES HERE>"
+services:
+- mongodb
 before_script:
 - npm install -g codeclimate-test-reporter
 after_script:
