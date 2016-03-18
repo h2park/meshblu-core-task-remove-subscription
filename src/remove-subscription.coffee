@@ -15,7 +15,11 @@ class RemoveSubscription
     callback null, response
 
   do: (request, callback) =>
-    {subscriberUuid,emitterUuid,type} = request.metadata.options
+    try
+      {subscriberUuid,emitterUuid,type} = JSON.parse request.rawData
+    catch error
+      return @_doCallback request, 500, callback
+
     @subscriptionManager.remove {subscriberUuid,emitterUuid,type}, (error) =>
       return @_doCallback request, error.code || 500, callback if error
       return @_doCallback request, 204, callback
